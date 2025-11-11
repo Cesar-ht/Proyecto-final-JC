@@ -1,0 +1,268 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* IMPORTANTE: En React, el contenido está dentro de #root */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* El contenedor principal debe tener display: flex */
+#root {
+  display: flex;
+  height: 100vh;
+}
+
+/* Tema Oscuro (por defecto) */
+body.tema-oscuro {
+  background-color: #121212;
+  color: #fff;
+}
+
+body.tema-oscuro .sidebar {
+  background-color: #1e1e1e;
+}
+
+body.tema-oscuro .topbar {
+  background-color: #2a2a2a;
+}
+
+body.tema-oscuro .search-box {
+  background-color: #3a3a3a;
+}
+
+/* Tema Claro */
+body.tema-claro {
+  background-color: #f5f5f5;
+  color: #000;
+}
+
+body.tema-claro .sidebar {
+  background-color: #e0e0e0;
+}
+
+body.tema-claro .topbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+body.tema-claro .search-box {
+  background-color: #f0f0f0;
+}
+
+body.tema-claro .search-box input {
+  color: #000;
+}
+
+body.tema-claro .content p {
+  color: #666;
+}
+
+body.tema-claro .sidebar img {
+  filter: brightness(0.3);
+}
+
+body.tema-claro .sidebar img:hover {
+  filter: brightness(0.5);
+}
+
+/* BARRA LATERAL */
+.sidebar {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; 
+  padding: 20px 0;
+  transition: width 0.3s, background-color 0.3s;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.sidebar .top-icons,
+.sidebar .bottom-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.sidebar:hover {
+  width: 200px;
+}
+
+.sidebar img {
+  width: 40px;
+  cursor: pointer;
+  filter: brightness(0.8);
+  transition: 0.2s;
+}
+
+.sidebar img:hover {
+  filter: brightness(1.2);
+  transform: scale(1.1);
+}
+
+/* CONTENIDO PRINCIPAL */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 80px; /* Espacio para el sidebar fijo */
+  width: calc(100% - 80px);
+}
+
+/* BARRA SUPERIOR */
+.topbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  transition: background-color 0.3s;
+}
+
+.topbar h1 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.search-box {
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.search-box input {
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+  transition: color 0.3s;
+}
+
+/* ZONA DE CONTENIDO */
+.content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  height: calc(100vh - 60px); /* 60px es el alto del topbar */
+}
+
+.content h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.content h4 {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #aaa;
+}
+
+.content p {
+  color: #aaa;
+  max-width: 500px;
+  transition: color 0.3s;
+}
+
+/* Estilos para formularios  */
+.form-container {
+  background: #2a2a2a;
+  padding: 25px;
+  border-radius: 12px;
+  transition: background-color 0.3s;
+}
+
+body.tema-claro .form-container {
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  background: #3a3a3a;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  outline: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.tema-claro .form-input {
+  background: #f0f0f0;
+  color: #000;
+  border: 1px solid #ddd;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #aaa;
+  font-size: 13px;
+  transition: color 0.3s;
+}
+
+body.tema-claro .form-label {
+  color: #666;
+}
+
+.profile-photo-container {
+  background: #2a2a2a;
+  transition: background-color 0.3s;
+}
+
+body.tema-claro .profile-photo-container {
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.profile-photo-preview {
+  background: #3a3a3a;
+  transition: background-color 0.3s;
+}
+
+body.tema-claro .profile-photo-preview {
+  background: #f0f0f0;
+}
+
+.settings-item {
+  border-bottom: 1px solid #3a3a3a;
+  transition: border-color 0.3s;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.tema-claro .settings-item {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.settings-select {
+  background: #3a3a3a;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.tema-claro .settings-select {
+  background: #f0f0f0;
+  color: #000;
+  border: 1px solid #ddd;
+}
