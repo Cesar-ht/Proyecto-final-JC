@@ -21,8 +21,23 @@ export const getGameById = async (req, res, next) => {
 
 export const createGame = async (req, res, next) => {
   try {
-    const { title, platform, genre, releaseDate } = req.body
-    const newGame = await Game.create({ title, platform, genre, releaseDate })
+    const { titulo, plataforma, genero, añoLanzamiento, desarrollador, imagenPortada, descripcion, horasJugadas, completado } = req.body
+    
+    if (!titulo || !plataforma) {
+      return res.status(400).json({ message: 'El título y la plataforma son obligatorios' })
+    }
+    
+    const newGame = await Game.create({ 
+      titulo, 
+      plataforma, 
+      genero, 
+      añoLanzamiento, 
+      desarrollador, 
+      imagenPortada, 
+      descripcion,
+      horasJugadas,
+      completado 
+    })
     res.status(201).json(newGame)
   } catch (error) {
     next(error)
@@ -34,7 +49,7 @@ export const updateGame = async (req, res, next) => {
     const game = await Game.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true } 
+      { new: true, runValidators: true }  
     )
     if (!game) return res.status(404).json({ message: 'Juego no encontrado' })
     res.json(game)
