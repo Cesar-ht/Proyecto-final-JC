@@ -1,28 +1,48 @@
-// src/models/Game.js
 import mongoose from 'mongoose'
 
 const gameSchema = new mongoose.Schema({
-  title: {
+  titulo: {
     type: String,
-    required: true,
+    required: [true, 'El título es obligatorio'],
     trim: true
   },
-  platform: {
+  genero: {
     type: String,
-    required: true,
-    enum: ['PC', 'PlayStation', 'Xbox', 'Nintendo Switch', 'Mobile', 'Otro']
-  },
-  genre: {
-    type: String,
-    default: null,
+    required: [true, 'El género es obligatorio'],
     trim: true
   },
-  releaseDate: {
-    type: Date,
+  plataforma: {
+    type: String,
+    required: [true, 'La plataforma es obligatoria'],
+    trim: true
+  },
+  añoLanzamiento: {
+    type: Number,
+    min: [1950, 'El año debe ser mayor a 1950'],
+    max: [new Date().getFullYear() + 5, 'El año no puede ser futuro']
+  },
+  desarrollador: {
+    type: String,
+    trim: true
+  },
+  imagenPortada: {
+    type: String,  
     default: null
+  },
+  descripcion: {
+    type: String,
+    trim: true
+  },
+  completado: {
+    type: Boolean,
+    default: false
+  },
+  fechaCreacion: {
+    type: Date,
+    default: Date.now
   }
 }, {
-  timestamps: true 
+  timestamps: true  
 })
 
 const Game = mongoose.model('Game', gameSchema)
