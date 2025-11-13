@@ -1,9 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import gameRoutes from './routes/gameRoutes.js'
-import reviewRoutes from './routes/reviewRoutes.js'
+import reviewRoutes from './routes/reviewRoutes.js' 
 import errorHandler from './middlewares/errorHandler.js'
-
+import authRoutes from './routes/auth.js'
 const app = express()
 
 app.use(cors({
@@ -19,13 +19,15 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       games: '/api/games',
-      reviews: '/api/reviews'
+      reviews: '/api/reviews',
+      auth: '/api/auth'
     }
   })
 })
 
 app.use('/api/games', gameRoutes)
 app.use('/api/reviews', reviewRoutes)
+app.use('/api/auth', authRoutes) 
 
 app.use(errorHandler)
 
