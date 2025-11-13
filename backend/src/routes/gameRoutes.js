@@ -5,7 +5,7 @@ import {
   createGame,
   updateGame,
   deleteGame
-} from '../Controllers/gameController.js'
+} from '../controllers/gameController.js'
 
 const router = Router()
 
