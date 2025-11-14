@@ -1,0 +1,261 @@
+/* ====================================
+   DETALLE JUEGO - ESTILOS
+   ==================================== */
+
+.detalle-juego-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  margin-bottom: 20px;
+}
+
+.breadcrumb a {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: #fff;
+}
+
+/* Header del Juego */
+.juego-header {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+/* Imagen del Juego */
+.juego-imagen-container {
+  position: relative;
+}
+
+.juego-imagen-grande {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+.juego-imagen-placeholder {
+  width: 100%;
+  height: 500px;
+  background: #2a2a2a;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+}
+
+/* Info Principal */
+.juego-info-principal {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.juego-titulo {
+  font-size: 42px;
+  margin: 0;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.juego-calificacion {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.promedio-texto {
+  font-size: 18px;
+  color: #aaa;
+}
+
+.juego-badges-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.juego-badge-detail {
+  padding: 8px 16px;
+  background: #3a3a3a;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #ddd;
+  font-weight: 500;
+}
+
+.juego-desarrollador-detail {
+  font-size: 16px;
+  color: #aaa;
+  margin: 0;
+}
+
+.juego-desarrollador-detail strong {
+  color: #fff;
+}
+
+.juego-descripcion-section {
+  margin-top: 10px;
+}
+
+.juego-descripcion-section h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.juego-descripcion-texto {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #ccc;
+  margin: 0;
+}
+
+.btn-agregar-biblioteca {
+  padding: 15px 30px;
+  background: #4CAF50;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  margin-top: auto;
+}
+
+.btn-agregar-biblioteca:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+.btn-agregar-biblioteca:active {
+  transform: translateY(0);
+}
+
+/* Sección de Reseñas */
+.seccion-reseñas {
+  margin-top: 50px;
+}
+
+.reseñas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.reseñas-header h2 {
+  font-size: 28px;
+  margin: 0;
+  color: #fff;
+}
+
+.btn-escribir-reseña {
+  padding: 12px 24px;
+  background: #3a3a3a;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-escribir-reseña:hover {
+  background: #4a4a4a;
+}
+
+/* Lista de Reseñas */
+.lista-reseñas {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tarjeta-reseña {
+  background: #2a2a2a;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #3a3a3a;
+  transition: border-color 0.2s;
+}
+
+.tarjeta-reseña:hover {
+  border-color: #4a4a4a;
+}
+
+/* ====================================
+   RESPONSIVE
+   ==================================== */
+
+@media (max-width: 1024px) {
+  .juego-header {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .juego-imagen-grande,
+  .juego-imagen-placeholder {
+    height: 400px;
+  }
+
+  .juego-titulo {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .detalle-juego-container {
+    padding: 0 15px;
+  }
+
+  .juego-titulo {
+    font-size: 28px;
+  }
+
+  .juego-imagen-grande,
+  .juego-imagen-placeholder {
+    height: 300px;
+  }
+
+  .reseñas-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .btn-escribir-reseña {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .juego-titulo {
+    font-size: 24px;
+  }
+
+  .juego-badges-container {
+    flex-direction: column;
+  }
+
+  .juego-badge-detail {
+    text-align: center;
+  }
+
+  .btn-agregar-biblioteca {
+    width: 100%;
+  }
+}

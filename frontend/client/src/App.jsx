@@ -10,6 +10,7 @@ import Sesion from './components/pages/Sesion'
 import Registro from './components/pages/Registrarse'
 import EditarJuego from './components/pages/Editar'
 import Crear from './components/pages/Crear'
+import DetalleJuego from './components/pages/DetalleJuego'
 
 function App() {
   useEffect(() => {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/ajustes" element={<Ajustes />} />
           <Route path="/biblioteca/editar/:id" element={<EditarJuego />} />
           <Route path="/Crear" element={<Crear />} />
+          <Route path="/juego/:id" element={<DetalleJuego />} />
         </Routes>
       </Layout>
     </BrowserRouter>

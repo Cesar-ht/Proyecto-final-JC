@@ -27,7 +27,7 @@ function FormularioReseña({ juegoId, onReviewCreated }) {
     setLoading(true)
 
     try {
-      const response = await fetch('http://localhost:5000/api/reseñas', {
+      const response = await fetch('http://localhost:3000/api/reviews', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

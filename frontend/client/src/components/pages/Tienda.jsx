@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import './../../styles/index.css'
-import { Link } from 'react-router-dom';
 
 function Tienda() {
   const [juegos, setJuegos] = useState([])
@@ -38,7 +38,9 @@ function Tienda() {
     }
   }
 
-  const agregarABiblioteca = async (juego) => {
+  const agregarABiblioteca = (e, juego) => {
+    e.preventDefault() // Prevenir navegación del Link
+    e.stopPropagation()
     alert(`"${juego.titulo}" agregado a tu biblioteca`)
   }
 
@@ -154,60 +156,67 @@ function Tienda() {
       ) : (
         <div className="games-grid">
           {juegosFiltrados.map(juego => (
-            <div key={juego._id} className="store-game-card">
-              {/* Imagen */}
-              {juego.imagenPortada && (
-                <img 
-                  src={juego.imagenPortada} 
-                  alt={juego.titulo}
-                  className="store-game-image"
-                  onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/280x180?text=Sin+Imagen'
-                  }}
-                />
-              )}
+            <Link 
+              to={`/juego/${juego._id}`} 
+              key={juego._id} 
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <div className="store-game-card">
+                {/* Imagen */}
+                {juego.imagenPortada && (
+                  <img 
+                    src={juego.imagenPortada} 
+                    alt={juego.titulo}
+                    className="store-game-image"
+                    onError={(e) => {
+                      e.target.src = 'https://via.placeholder.com/280x180?text=Sin+Imagen'
+                    }}
+                  />
+                )}
 
-              {/* Información */}
-              <div className="game-content">
-                <h4 className="game-title">
-                  {juego.titulo}
-                </h4>
-                <div className="game-badges">
-                  {juego.genero && (
-                    <span className="game-badge">{juego.genero}</span>
+                {/* Información */}
+                <div className="game-content">
+                  <h4 className="game-title">
+                    {juego.titulo}
+                  </h4>
+
+                  <div className="game-badges">
+                    {juego.genero && (
+                      <span className="game-badge">{juego.genero}</span>
+                    )}
+                    {juego.plataforma && (
+                      <span className="game-badge">{juego.plataforma}</span>
+                    )}
+                  </div>
+
+                  {juego.desarrollador && (
+                    <p className="game-developer">
+                      {juego.desarrollador}
+                    </p>
                   )}
-                  {juego.plataforma && (
-                    <span className="game-badge">{juego.plataforma}</span>
+
+                  {juego.añoLanzamiento && (
+                    <p className="game-release-year">
+                      Año: {juego.añoLanzamiento}
+                    </p>
                   )}
+
+                  {juego.descripcion && (
+                    <p className="game-description">
+                      {juego.descripcion}
+                    </p>
+                  )}
+
+                  {/* Botón Agregar */}
+                  <button
+                    className="add-button"
+                    onClick={(e) => agregarABiblioteca(e, juego)}
+                  >
+                    Agregar a Biblioteca
+                  </button>
                 </div>
-
-                {juego.desarrollador && (
-                  <p className="game-developer">
-                    {juego.desarrollador}
-                  </p>
-                )}
-
-                {juego.añoLanzamiento && (
-                  <p className="game-release-year">
-                    Año: {juego.añoLanzamiento}
-                  </p>
-                )}
-
-                {juego.descripcion && (
-                  <p className="game-description">
-                    {juego.descripcion}
-                  </p>
-                )}
-
-                {/* Botón Agregar */}
-                <button
-                  className="add-button"
-                  onClick={() => agregarABiblioteca(juego)}
-                >
-                  Agregar a Biblioteca
-                </button>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}
