@@ -1417,11 +1417,6 @@ body.tema-claro .juego-horas {
   color: var(--text-muted);
 }
 
-/* --- Acciones y Botones --- */
-.juego-acciones-biblioteca {
-  margin-bottom: 15px;
-}
-
 .estado-btn {
   padding: 6px 12px;
   border: none;
@@ -1451,11 +1446,29 @@ body.tema-claro .estado-btn.en-progreso:hover {
   background-color: var(--color-warning-hover);
 }
 
+.editar-btn{
+  padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 50%;
+    margin-right: 80;
+    background  : var(--border-input);
+    color: var(--color-white);
+}
+
+.editar-btn:hover {
+  background: var(--color-white);
+  color: var(--bg-surface-2);
+}
 
 .eliminar-btn {
-  width: 100%;
+  width: 50%;
   padding: 8px 12px;
-  background: var(--color-error);
+  background: var(--border-input);
   color: var(--color-white);
   border: none;
   border-radius: 4px;
