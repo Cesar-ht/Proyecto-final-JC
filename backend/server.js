@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import 'dotenv/config';
 
 // Routes
 import authRoutes from './src/routes/auth.js';
@@ -9,6 +10,7 @@ import gameRoutes from './src/routes/gameRoutes.js';
 import reviewRoutes from './src//routes/reviewRoutes.js';
 
 dotenv.config();
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,23 +24,23 @@ mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('✅ Conectado a MongoDB Atlas'))
+.then(() => console.log('Conectado a MongoDB Atlas'))
 .catch(err => {
-  console.error('❌ Error conectando a MongoDB Atlas:', err);
+  console.error('Error conectando a MongoDB Atlas:', err);
   process.exit(1);
 });
 
 // Manejo de eventos de conexión
 mongoose.connection.on('connected', () => {
-  console.log('📊 Mongoose conectado a la base de datos');
+  console.log('Mongoose conectado a la base de datos');
 });
 
 mongoose.connection.on('error', (err) => {
-  console.error('❌ Error de Mongoose:', err);
+  console.error('Error de Mongoose:', err);
 });
 
 mongoose.connection.on('disconnected', () => {
-  console.log('⚠️  Mongoose desconectado');
+  console.log('Mongoose desconectado');
 });
 
 // Routes

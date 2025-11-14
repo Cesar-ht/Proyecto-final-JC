@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
@@ -27,7 +28,7 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ error: 'El usuario o email ya existe' });
     }
 
-    // Crear usuario (sin encriptar para simplificar)
+    // Crear usuario 
     const user = new User({ username, email, password });
     await user.save();
 

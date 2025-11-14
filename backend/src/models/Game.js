@@ -40,7 +40,10 @@ const gameSchema = new mongoose.Schema({
   fechaCreacion: {
     type: Date,
     default: Date.now
-  }
+  },
+  horasJugadas: { 
+    type: Number, 
+    default: 0 },
 }, {
   timestamps: true  
 })
