@@ -21,28 +21,6 @@ export function AjustesComponent() {
             <option value="claro">Claro</option>
           </select>
         </div>
-        
-        <div className="settings-item">
-          <div>
-            <h4 style={{ marginBottom: '5px' }}>Idioma</h4>
-            <p style={{ fontSize: '12px' }}>Selecciona tu idioma preferido</p>
-          </div>
-          <select className="settings-select">
-            <option value="es">Español</option>
-            <option value="en">English</option>
-          </select>
-        </div>
-
-        <div className="settings-item">
-          <div>
-            <h4 style={{ marginBottom: '5px' }}>Notificaciones</h4>
-            <p style={{ fontSize: '12px' }}>Recibe alertas de nuevos juegos</p>
-          </div>
-          <select className="settings-select">
-            <option value="activadas">Activadas</option>
-            <option value="desactivadas">Desactivadas</option>
-          </select>
-        </div>
       </div>
     </>
   )
