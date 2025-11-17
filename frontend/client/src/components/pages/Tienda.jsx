@@ -126,6 +126,11 @@ const Tienda = () => {
                         Ver Mi Biblioteca
                     </button>
                 </Link>
+                <Link to="/crear">
+                    <button className="explorar-tienda-btn">
+                        Agregar Nuevo Juego
+                    </button>
+                </Link>
             </div>
 
             {/* Filtros y Búsqueda */}
