@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  biblioteca: [{ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Game',
+    default: []
+  }],
   createdAt: { 
     type: Date, 
     default: Date.now 

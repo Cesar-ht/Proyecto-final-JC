@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import FormularioJuego from '../games/FormularioJuego' 
 import './../../styles/index.css'
 
 function Biblioteca() {
@@ -8,8 +7,6 @@ function Biblioteca() {
     const [juegos, setJuegos] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
-    
-    const [mostrarFormulario, setMostrarFormulario] = useState(false) 
 
     // Filtros
     const [filterCompletado, setFilterCompletado] = useState('todos')
@@ -25,65 +22,55 @@ function Biblioteca() {
         try {
             const token = getToken()
             
-            const response = await fetch('http://localhost:3000/api/games', {
+            if (!token) {
+                setError('Debes iniciar sesión para ver tu biblioteca')
+                setLoading(false)
+                return
+            }
+
+            const response = await fetch('http://localhost:3000/api/games/user/biblioteca', {
                 headers: {
-                    'Authorization': token ? `Bearer ${token}` : ''
+                    'Authorization': `Bearer ${token}`
                 }
             })
 
             if (!response.ok) {
-                // Si la respuesta no es OK (ej. 401 Unauthorized, 500)
-                throw new Error('Error al cargar los juegos. ¿Sesión expirada?')
+                throw new Error('Error al cargar la biblioteca. ¿Sesión expirada?')
             }
 
             const data = await response.json()
             setJuegos(data)
         } catch (error) {
-            console.error('Error al obtener juegos:', error)
-            setError('No se pudieron cargar los juegos. Revisa tu conexión o sesión.')
+            console.error('Error al obtener biblioteca:', error)
+            setError('No se pudo cargar tu biblioteca. Revisa tu sesión.')
         } finally {
             setLoading(false)
         }
     }
 
-    // --- MANEJO DE FORMULARIO (Agregar/Editar) ---
-
+    // --- MANEJO DE EDICIÓN ---
     const handleEdit = (juego) => {
         navigate(`/biblioteca/editar/${juego._id}`)
     }
 
-    const handleJuegoGuardado = () => {
-        // Se llama después de crear o editar un juego
-        navigate('/biblioteca')
-        setMostrarFormulario(false)
-        fetchJuegos() 
-    }
-
-    const handleCancelar = () => {
-        setJuegoEditando(null)
-        setMostrarFormulario(false)
-    }
-
-    // --- MANEJO DE ELIMINACIÓN ---
-
     const handleDelete = async (juegoId, titulo) => {
-        if (!confirm(`¿Estás seguro de ELIMINAR permanentemente "${titulo}"?`)) return
+        if (!confirm(`¿Eliminar "${titulo}" de tu biblioteca?`)) return
 
         try {
             const token = getToken()
             
-            const response = await fetch(`http://localhost:3000/api/games/${juegoId}`, {
+            const response = await fetch(`http://localhost:3000/api/games/biblioteca/${juegoId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': token ? `Bearer ${token}` : ''
+                    'Authorization': `Bearer ${token}`
                 }
             })
 
             if (response.ok) {
                 setJuegos(juegos.filter(j => j._id !== juegoId))
-                alert('Juego eliminado de la biblioteca')
+                alert('Juego eliminado de tu biblioteca')
             } else {
-                 throw new Error('No autorizado o error del servidor.')
+                throw new Error('No autorizado o error del servidor.')
             }
         } catch (error) {
             console.error('Error al eliminar:', error)
@@ -92,7 +79,6 @@ function Biblioteca() {
     }
 
     // --- MANEJO DE ESTADO COMPLETADO ---
-
     const toggleCompletado = async (juego) => {
         try {
             const token = getToken()
@@ -118,7 +104,6 @@ function Biblioteca() {
     }
 
     // --- LÓGICA DE FILTROS ---
-
     const juegosFiltrados = juegos.filter(juego => {
         const matchSearch = juego.titulo.toLowerCase().includes(searchTerm.toLowerCase())
         const matchCompletado = 
@@ -129,7 +114,6 @@ function Biblioteca() {
     })
 
     // --- ESTADÍSTICAS ---
-
     const totalJuegos = juegos.length
     const juegosCompletados = juegos.filter(j => j.completado).length
     const horasTotales = juegos.reduce((sum, j) => sum + (j.horasJugadas || j.tiempoJugado || 0), 0)
@@ -154,21 +138,9 @@ function Biblioteca() {
     }
 
     // --- RENDERIZADO PRINCIPAL ---
-
     return (
         <>
-            {/* Formulario de Agregar/Editar */}
-            {mostrarFormulario && (
-                <div className="modal-overlay">
-                    <FormularioJuego 
-                        juego={juegoEditando} 
-                        onGuardado={handleJuegoGuardado}
-                        onCancelar={handleCancelar}
-                    />
-                </div>
-            )}
-            
-            {/* Header con Botón de Tienda y Agregar */}
+            {/* Header con Botón de Tienda */}
             <div className="biblioteca-header">
                 <div>
                     <h2>Mi Biblioteca</h2>
@@ -239,14 +211,16 @@ function Biblioteca() {
                     </h4>
                     <p className="biblioteca-empty-text">
                         {juegos.length === 0
-                            ? 'Comienza agregando juegos o explorando la tienda'
+                            ? '¡Visita la tienda para agregar juegos a tu biblioteca!'
                             : 'Intenta cambiar los filtros de búsqueda'
                         }
                     </p>
                     {juegos.length === 0 && (
-                        <button onClick={() => setMostrarFormulario(true)} className="ir-tienda-btn">
-                            Añadir mi primer Juego
-                        </button>
+                        <Link to="/tienda">
+                            <button className="ir-tienda-btn">
+                                Ir a la Tienda
+                            </button>
+                        </Link>
                     )}
                 </div>
             ) : (
