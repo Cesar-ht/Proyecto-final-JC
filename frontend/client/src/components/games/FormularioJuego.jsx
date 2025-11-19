@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import API_URL from '../../config/api'
 
 function FormularioJuego({ juego, onGuardado, onCancelar }) {
   const [formData, setFormData] = useState({
@@ -50,8 +51,8 @@ function FormularioJuego({ juego, onGuardado, onCancelar }) {
 
     try {
       const url = juego 
-        ? `http://localhost:3000/api/games/${juego._id}`
-        : 'http://localhost:3000/api/games'
+        ? `${API_URL}/games/${juego._id}`
+        : `${API_URL}/games`
 
       const method = juego ? 'PUT' : 'POST'
 

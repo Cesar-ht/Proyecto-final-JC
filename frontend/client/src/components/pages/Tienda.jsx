@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './../../styles/index.css'
+import API_URL from '../../config/api'
 
 const Tienda = () => {
     const [juegos, setJuegos] = useState([]);
@@ -22,7 +23,7 @@ const Tienda = () => {
 
     const fetchJuegosTienda = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/games/tienda');
+            const response = await fetch(`${API_URL}/games/tienda`);
             const data = await response.json();
             setJuegos(data);
         } catch (error) {
@@ -38,7 +39,7 @@ const Tienda = () => {
         if (!token) return;
 
         try {
-            const response = await fetch('http://localhost:3000/api/games/user/biblioteca', {
+            const response = await fetch(`${API_URL}/games/user/biblioteca`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();
@@ -60,7 +61,7 @@ const Tienda = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/api/games/biblioteca/${juegoId}`, {
+            const response = await fetch(`${API_URL}/games/biblioteca/${juegoId}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`

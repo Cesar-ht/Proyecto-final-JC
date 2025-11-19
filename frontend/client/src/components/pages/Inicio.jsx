@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './../../styles/index.css'
+import API_URL from '../../config/api'
 
 function Inicio() {
   const [juegos, setJuegos] = useState([])
@@ -23,7 +24,7 @@ function Inicio() {
     try {
       const token = localStorage.getItem('token')
       
-      const response = await fetch('http://localhost:3000/api/games/user/biblioteca', {
+      const response = await fetch(`${API_URL}/games/user/biblioteca`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './../../styles/index.css'
+import API_URL from '../../config/api'
 
 function Biblioteca() {
     const navigate = useNavigate()
@@ -28,7 +29,7 @@ function Biblioteca() {
                 return
             }
 
-            const response = await fetch('http://localhost:3000/api/games/user/biblioteca', {
+            const response = await fetch(`${API_URL}/games/user/biblioteca`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -59,7 +60,7 @@ function Biblioteca() {
         try {
             const token = getToken()
             
-            const response = await fetch(`http://localhost:3000/api/games/biblioteca/${juegoId}`, {
+            const response = await fetch(`${API_URL}/games/biblioteca/${juegoId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -83,7 +84,7 @@ function Biblioteca() {
         try {
             const token = getToken()
             
-            const response = await fetch(`http://localhost:3000/api/games/${juego._id}`, {
+            const response = await fetch(`${API_URL}/games/${juego._id}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': token ? `Bearer ${token}` : '',

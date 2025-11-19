@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import FormularioJuego from '../games/FormularioJuego' // Ajusta la ruta según tu estructura
+import API_URL from '../../config/api'
 
 function EditarJuego() {
     // 1. Obtener el ID del juego de la URL
@@ -16,7 +17,7 @@ function EditarJuego() {
         const fetchJuego = async () => {
             try {
                 const token = localStorage.getItem('token')
-                const response = await fetch(`http://localhost:3000/api/games/${id}`, {
+                const response = await fetch(`${API_URL}/games/${id}`, {
                     headers: {
                         'Authorization': token ? `Bearer ${token}` : ''
                     }

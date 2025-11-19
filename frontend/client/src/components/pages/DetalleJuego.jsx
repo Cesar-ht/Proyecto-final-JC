@@ -4,6 +4,7 @@ import StarRating from '../reviews/StarRating'
 import FormularioReseña from '../reviews/FormularioReseña'
 import TarjetaReseña from '../reviews/TarjetaReseña'
 import '../../styles/components/DetalleJuego.css'
+import API_URL from '../../config/api'
 
 function DetalleJuego() {
   const { id } = useParams() // Obtener el ID del juego desde la URL
@@ -22,7 +23,7 @@ function DetalleJuego() {
     try {
       const token = localStorage.getItem('token')
       
-      const response = await fetch(`http://localhost:3000/api/games/${id}`, {
+      const response = await fetch(`${API_URL}/games/${id}`, {
         headers: {
           'Authorization': token ? `Bearer ${token}` : ''
         }
@@ -44,7 +45,7 @@ function DetalleJuego() {
 
   const fetchReseñas = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/reviews/game/${id}`)
+      const response = await fetch(`${API_URL}/reviews/game/${id}`)
       const data = await response.json()
       
       // Ajustar según la estructura de respuesta de tu API
@@ -62,7 +63,7 @@ function DetalleJuego() {
 
   const handleReseñaEliminada = async (reseñaId) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/reseñas/${reseñaId}`, {
+      const response = await fetch(`${API_URL}/reseñas/${reseñaId}`, {
         method: 'DELETE'
       })
 

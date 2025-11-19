@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import TarjetaJuego from './TarjetaJuego'
 import FormularioJuego from './FormularioJuego'
+import API_URL from '../../config/api'
 
 function BibliotecaJuegos() {
   const [juegos, setJuegos] = useState([])
@@ -14,7 +15,7 @@ function BibliotecaJuegos() {
 
   const fetchJuegos = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/games')
+      const response = await fetch(`${API_URL}/games`)
       const data = await response.json()
       setJuegos(data)
     } catch (error) {
@@ -44,7 +45,7 @@ function BibliotecaJuegos() {
     if (!confirm('¿Eliminar este juego?')) return
     
     try {
-      await fetch(`http://localhost:3000/api/games/${id}`, {
+      await fetch(`${API_URL}/games/${id}`, {
         method: 'DELETE'
       })
       fetchJuegos()

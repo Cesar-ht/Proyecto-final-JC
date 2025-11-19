@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import TarjetaReseña from './TarjetaReseña'
+import API_URL from '../../config/api'
 
 function ListaReseñas({ gameId }) {
   const [reseñas, setReseñas] = useState([])
@@ -13,7 +14,7 @@ function ListaReseñas({ gameId }) {
 
   const fetchReseñas = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/reviews/${gameId}`)
+      const response = await fetch(`${API_URL}/reviews/${gameId}`)
       const data = await response.json()
       setReseñas(data)
     } catch (error) {
@@ -27,7 +28,7 @@ function ListaReseñas({ gameId }) {
     if (!confirm('¿Eliminar esta reseña?')) return
     
     try {
-      await fetch(`http://localhost:3000/api/reviews/${id}`, {
+      await fetch(`${API_URL}/reviews/${id}`, {
         method: 'DELETE'
       })
       fetchReseñas() // Recargar lista
