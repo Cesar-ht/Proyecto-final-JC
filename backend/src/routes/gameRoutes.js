@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import Game from '../models/Game.js'
 import {
   getGames,
   getGameById,
