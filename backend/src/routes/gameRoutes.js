@@ -10,7 +10,7 @@ import {
   getBibliotecaUsuario,
   agregarABiblioteca,
   eliminarDeBiblioteca
-} from '../controllers/gameController.js'
+} from '../Controllers/gameController.js'
 import { authMiddleware } from '../middlewares/auth.js' 
 
 const router = Router()

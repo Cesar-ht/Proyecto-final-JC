@@ -1,24 +1,31 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './../../styles/index.css'
-import BibliotecaJuegos from '../games/BibliotecaJuegos'
 
 function Inicio() {
   const [juegos, setJuegos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
-    fetchJuegos()
+    const token = localStorage.getItem('token')
+    setIsAuthenticated(!!token)
+    
+    if (token) {
+      fetchJuegos()
+    } else {
+      setLoading(false)
+    }
   }, [])
 
   const fetchJuegos = async () => {
     try {
       const token = localStorage.getItem('token')
       
-      const response = await fetch('http://localhost:3000/api/games/tienda', {
+      const response = await fetch('http://localhost:3000/api/games/user/biblioteca', {
         headers: {
-          'Authorization': token ? `Bearer ${token}` : ''
+          'Authorization': `Bearer ${token}`
         }
       })
 
@@ -58,6 +65,79 @@ function Inicio() {
     )
   }
 
+  if (!isAuthenticated) {
+    return (
+      <>
+        {/* Hero Section para no autenticados */}
+        <div className="hero-section">
+          <h2 className="hero-title">
+            Bienvenido a GameTracker
+          </h2>
+          <h4 className="hero-subtitle">
+            Tu biblioteca personal de videojuegos
+          </h4>
+        </div>
+
+        {/* Mensaje para iniciar sesión */}
+        <div className="empty-state">
+          <div className="empty-state-icon"></div>
+          <h4>Inicia sesión para comenzar</h4>
+          <p>
+            Crea una cuenta o inicia sesión para gestionar tu biblioteca de videojuegos
+          </p>
+          <div style={{ display: 'flex', gap: '15px', marginTop: '20px' }}>
+            <Link to="/login">
+              <button className="empty-state-button">
+                Iniciar Sesión
+              </button>
+            </Link>
+            <Link to="/register">
+              <button className="empty-state-button">
+                Registrarse
+              </button>
+            </Link>
+          </div>
+        </div>
+
+        {/* Información sobre qué ofrece la app */}
+        <div className="quick-access-section">
+          <h3 className="section-title">¿Qué puedes hacer?</h3>
+          <div className="quick-access-grid">
+            <div className="quick-access-card">
+              <div className="quick-access-icon"></div>
+              <h4 className="quick-access-title">
+                Gestiona tu Biblioteca
+              </h4>
+              <p className="quick-access-description">
+                Organiza y rastrea todos tus videojuegos en un solo lugar
+              </p>
+            </div>
+
+            <div className="quick-access-card">
+              <div className="quick-access-icon"></div>
+              <h4 className="quick-access-title">
+                Explora la Tienda
+              </h4>
+              <p className="quick-access-description">
+                Descubre nuevos juegos y agrégalos a tu colección
+              </p>
+            </div>
+
+            <div className="quick-access-card">
+              <div className="quick-access-icon"></div>
+              <h4 className="quick-access-title">
+                Marca Progreso
+              </h4>
+              <p className="quick-access-description">
+                Lleva el control de los juegos que has completado
+              </p>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
+
   if (error) {
     return (
       <div className="inicio-error">
@@ -71,7 +151,7 @@ function Inicio() {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section para usuarios autenticados */}
       <div className="hero-section">
         <h2 className="hero-title">
           Bienvenido a GameTracker
@@ -80,6 +160,7 @@ function Inicio() {
           Tu biblioteca personal de videojuegos
         </h4>
       </div>
+      
       {/* Estadísticas Rápidas */}
       {juegos.length > 0 && (
         <div className="stats-grid">
@@ -150,8 +231,8 @@ function Inicio() {
 
         {juegos.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-state-icon">🎮</div>
-            <h4>Aún no tienes juegos</h4>
+            <div className="empty-state-icon"></div>
+            <h4>Aún no tienes juegos en tu biblioteca</h4>
             <p>
               Comienza explorando la tienda y agrega tus juegos favoritos
             </p>
@@ -164,47 +245,53 @@ function Inicio() {
         ) : (
           <div className="games-grid">
             {juegos.slice(0, 6).map(juego => (
-              <div key={juego._id} className="game-card">
-                {juego.imagenPortada && (
-                  <img 
-                    src={juego.imagenPortada} 
-                    alt={juego.titulo}
-                    className="game-image"
-                    onError={(e) => {
-                      e.target.src = 'https://via.placeholder.com/280x160?text=Sin+Imagen'
-                    }}
-                  />
-                )}
-                
-                <div className="game-content">
-                  <h4 className="game-title">
-                    {juego.titulo}
-                  </h4>
-                  
-                  <div className="game-info">
-                    <span>{juego.plataforma}</span>
-                    <span>{juego.genero}</span>
-                  </div>
-
-                  {juego.añoLanzamiento && (
-                    <p className="game-year">
-                      Año: {juego.añoLanzamiento}
-                    </p>
+              <Link 
+                to={`/juego/${juego._id}`} 
+                key={juego._id} 
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <div className="game-card">
+                  {juego.imagenPortada && (
+                    <img 
+                      src={juego.imagenPortada} 
+                      alt={juego.titulo}
+                      className="game-image"
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/280x160?text=Sin+Imagen'
+                      }}
+                    />
                   )}
+                  
+                  <div className="game-content">
+                    <h4 className="game-title">
+                      {juego.titulo}
+                    </h4>
+                    
+                    <div className="game-info">
+                      <span>{juego.plataforma}</span>
+                      <span>{juego.genero}</span>
+                    </div>
 
-                  <div className="game-footer">
-                    <span className={`game-status ${juego.completado ? 'completado' : 'en-progreso'}`}>
-                      {juego.completado ? 'Completado' : 'En progreso'}
-                    </span>
-
-                    {(juego.horasJugadas > 0 || juego.tiempoJugado > 0) && (
-                      <span className="game-hours">
-                        {juego.horasJugadas || juego.tiempoJugado}h
-                      </span>
+                    {juego.añoLanzamiento && (
+                      <p className="game-year">
+                        Año: {juego.añoLanzamiento}
+                      </p>
                     )}
+
+                    <div className="game-footer">
+                      <span className={`game-status ${juego.completado ? 'completado' : 'en-progreso'}`}>
+                        {juego.completado ? 'Completado' : 'En progreso'}
+                      </span>
+
+                      {(juego.horasJugadas > 0 || juego.tiempoJugado > 0) && (
+                        <span className="game-hours">
+                          {juego.horasJugadas || juego.tiempoJugado}h
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
