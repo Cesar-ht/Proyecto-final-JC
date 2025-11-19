@@ -1,6 +1,5 @@
 import Game from '../models/Game.js'
 import User from '../models/User.js'
-import React from 'react'
 
 export const getGames = async (req, res, next) => {
   try {
