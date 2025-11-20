@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import StarRating from './StarRating'
+import API_URL from '../../config/api'
 
 function FormularioReseña({ juegoId, onReviewCreated }) {
   // Estados
@@ -27,7 +28,7 @@ function FormularioReseña({ juegoId, onReviewCreated }) {
     setLoading(true)
 
     try {
-      const response = await fetch('http://localhost:3000/api/reviews', {
+      const response = await fetch(`${API_URL}/reviews`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
